@@ -1,1 +1,1 @@
-Here you can find some the solutions for the codecool exercises written in python.
+Here you can find the solutions for some of the codecool exercises written in python.
