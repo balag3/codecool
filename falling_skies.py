@@ -19,8 +19,9 @@ choosen_one = string_list[random.randint(0,25)]
 
 x = random.randint(12,max_x-2)
 
-
+life = 3
 score = 0
+
 difficulity = 0.4
 rain = "~"*(max_x-1)
 
@@ -34,17 +35,22 @@ def fall():
     y += 1
     stdscr.refresh()
 
-
+start = 'PUSH ANY KEY TO START'
+stdscr.addstr(int(max_y/2),int(max_x/2-len(start)),start)
+if stdscr.getch():
+    stdscr.erase()
+    stdscr.refresh()
 
 running = True
 while running:
     stdscr.addstr(1,1,rain)
-    stdscr.addstr(2,1,'Score: %s' %(score))
+    stdscr.addstr(2,1,'SCORE: %s' %(score))
+    stdscr.addstr(4,1,'LIFE: %s' %(life))
     time.sleep(difficulity)
     stdscr.border(0)
     fall()
     key = stdscr.getch()
-    stdscr.timeout(3)
+    stdscr.timeout(1)
     if key == ord(choosen_one):
          y = 2
          x = random.randint(12,max_x-2)
@@ -63,10 +69,24 @@ while running:
         difficulity = 0.10
     if score > 30:
         difficulity = 0.075
+    if score > 40:
+        difficulity = 0.070
+    if score > 45:
+        difficulity = 0.065
+    if score > 55:
+        difficulity = 0.055
+    if score > 65:
+        difficulity = 0.05
+    if score > 75:
+        difficulity = 0.045
 
     if y == max_y -1 :
-        stdscr.refresh()
-        stdscr.addstr(int(max_y/2),int(max_x/2),'You LOST!')
+        y = 2
+        x = random.randint(12,max_x-2)
+        choosen_one = string_list[random.randint(0,25)]
+        stdscr.erase()
+        life -= 1
+    if life == 0:
         running = False
 stdscr.getch()
 curses.endwin()
