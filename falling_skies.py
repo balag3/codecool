@@ -23,20 +23,20 @@ life = 3
 score = 0
 
 difficulity = 0.4
-rain = "~"*(max_x-1)
-
+rain = "☢ "*(max_x-1)u
+earth = "⏏_"*(max_x-2)
 
 
 def fall():
     global y
     stdscr.addstr(y,x,str(choosen_one.upper()))
-    stdscr.move(y-1,0)
+    #stdscr.move(y-1,0)
     #stdscr.clrtoeol()
     y += 1
     stdscr.refresh()
 
 start = 'PUSH ANY KEY TO START'
-stdscr.addstr(int(max_y/2),int(max_x/2-len(start)),start)
+stdscr.addstr(int(max_y/2),int(max_x/2-10),start)
 if stdscr.getch():
     stdscr.erase()
     stdscr.refresh()
@@ -44,8 +44,9 @@ if stdscr.getch():
 running = True
 while running:
     stdscr.addstr(1,1,rain)
-    stdscr.addstr(2,1,'SCORE: %s' %(score))
-    stdscr.addstr(4,1,'LIFE: %s' %(life))
+    stdscr.addstr(max_y-2,1,earth)
+    stdscr.addstr(4,1,'SCORE: ✎ %s' %(score))
+    stdscr.addstr(6,1,'LIFE: ♥ %s' %(life))
     time.sleep(difficulity)
     stdscr.border(0)
     fall()
@@ -88,5 +89,19 @@ while running:
         life -= 1
     if life == 0:
         running = False
-stdscr.getch()
+while True:
+    stdscr.addstr(1,1,rain)
+    stdscr.addstr(max_y-2,1,earth)
+    stdscr.addstr(4,1,'SCORE: ✎ %s' %(score))
+    stdscr.addstr(6,1,'LIFE: ♥ %s' %(life))
+    stdscr.addstr(int(max_y/2)-5,int(max_x/2-14), "YOUR FINAL SCORE IS :  %s" %(score))
+    stdscr.addstr(int(max_y/2),int(max_x/2-10),"PRESS Q TO QUIT")
+    stdscr.border(0)
+    #fall()
+    key = stdscr.getch()
+    stdscr.timeout(-1)
+    if key == ord("q"):
+        break
+    if key == ord("r"):
+        running = True
 curses.endwin()
